@@ -90,7 +90,9 @@ Feature: Check the kickstart course format features.
     And I should see "Test template 2" in the ".kickstart-tile-view" "css_element"
     And I should see "Preview" in the ".template-list .card-deck:last-child .card-footer a:last-child" "css_element"
     And I should see "Use template" in the ".template-list .card-deck:last-child .use-template" "css_element"
+    And I click on ".use-template[data-templatename=\"Test template 2\"]" "css_element" in the ".template-list" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
+    And I wait "20" seconds
     And I should see "General" in the ".section .course-section-header .sectionname" "css_element"
 
     # Course kickstart page
@@ -129,9 +131,11 @@ Feature: Check the kickstart course format features.
     And I am on "Course 1" course homepage
     And I click on ".use-template[data-templatename=\"Custom sections\"]" "css_element" in the ".template-list" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
+
     And I click on "Kickstart" "link" in the ".secondary-navigation" "css_element"
     And I click on ".dropdown-toggle" "css_element" in the ".tertiary-navigation-selector" "css_element"
     And I click on ".dropdown .dropdown-menu .dropdown-item:first-child" "css_element" in the ".tertiary-navigation-selector" "css_element"
+
     And I click on "Kickstart" "link" in the ".secondary-navigation" "css_element"
     And I should see "Course template" in the ".tertiary-navigation-selector .dropdown-toggle" "css_element"
     And I click on ".dropdown-toggle" "css_element" in the ".tertiary-navigation-selector" "css_element"
@@ -155,7 +159,7 @@ Feature: Check the kickstart course format features.
     And I wait until the page is ready
     And I expand all fieldsets
     And I set the following fields to these values:
-    |  Student instructions     |  I’m excited to have you in this course! Over the next few weeks, we’ll explore brief course topic, engage in interactive discussions, and work on practical assignments to enhance your learning. |
+    |  Student instructions  |  I’m excited to have you in this course! Over the next few weeks, we’ll explore brief course topic, engage in interactive discussions, and work on practical assignments to enhance your learning. |
     |  Teacher instructions  |  As a teacher, you can use this space to provide a warm welcome to your students. A well-crafted welcome message helps set the tone for the course and guides students on what to expect. |
     And I press "Save and display"
 
@@ -181,7 +185,7 @@ Feature: Check the kickstart course format features.
     And I should see "Student view" in the ".tertiary-navigation-selector .dropdown-toggle" "css_element"
     And I should see "Student view is not available for this course."
 
-    # Help documentation page
+    # Help documentation page in the kickstart page
     And I click on ".dropdown-toggle" "css_element" in the ".tertiary-navigation-selector" "css_element"
     And I click on ".dropdown .dropdown-menu .dropdown-item:nth-child(3)" "css_element" in the ".tertiary-navigation-selector" "css_element"
     And I should see "Help" in the ".tertiary-navigation-selector .dropdown-toggle" "css_element"
