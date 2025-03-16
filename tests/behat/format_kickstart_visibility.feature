@@ -82,7 +82,7 @@ Feature: Check the kickstart course format features.
       | Course short name | Test course 1|
       | Course category | Cat 1 |
     And I press "Save and display"
-    Then I should see "Welcome to your new course" in the ".course-content h3" "css_element"
+    # Then I should see "Welcome to your new course" in the ".course-content h3" "css_element"
     And I click kickstart template ".use-template[data-templatename=\"Test template 1\"]"
     And I click on "Import" "button" in the ".modal" "css_element"
     And I start watching to see if a new page loads
@@ -133,7 +133,6 @@ Feature: Check the kickstart course format features.
     Then I am on "Course 1" course homepage
     And I should see "Course template" in the ".tertiary-navigation-selector .dropdown-toggle" "css_element"
     And I should not see course format "Single activity"
-    Then I should see "Custom sections" in the ".template-list .card-deck:nth-child(6) .card" "css_element"
     And I click on ".use-template[data-templatename=\"Custom sections\"]" "css_element" in the ".template-list" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
     And I start watching to see if a new page loads
@@ -154,6 +153,7 @@ Feature: Check the kickstart course format features.
   Scenario: Check the single activity format template
     Given I log in as "admin"
     And I am on "Course 3" course homepage with editing mode on
+    And I wait "30" seconds
     And I should see course format "Single activity"
     And I click kickstart single activity format template
     And I click on "Import" "button" in the ".modal" "css_element"

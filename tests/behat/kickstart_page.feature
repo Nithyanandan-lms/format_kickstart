@@ -91,8 +91,8 @@ Feature: Check the kickstart course format features.
     And I should see "Preview" in the ".template-list .card-deck:last-child .card-footer a:last-child" "css_element"
     And I should see "Use template" in the ".template-list .card-deck:last-child .use-template" "css_element"
     And I click on ".use-template[data-templatename=\"Test template 2\"]" "css_element" in the ".template-list" "css_element"
-    And I click on "Import" "button" in the ".modal-dialog" "css_element"
     And I wait "20" seconds
+    And I click on "Import" "button" in the ".modal-dialog" "css_element"
     And I should see "General" in the ".section .course-section-header .sectionname" "css_element"
 
     # Course kickstart page
