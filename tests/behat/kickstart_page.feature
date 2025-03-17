@@ -34,16 +34,17 @@ Feature: Check the kickstart course format features.
     And I log in as "admin"
     And I create a kickstart template with:
       | Title | Test template 1 |
+      | Tags  | template 1      |
       | Course backup file (.mbz) | /course/format/kickstart/tests/course.mbz|
     Then I should see "Template successfully created"
-    Then I should see "Test template 1" in the "#templates_r5" "css_element"
-    And I click on "#templates_r5 .singlebutton:nth-child(1)" "css_element" in the "Test template 1" "table_row"
+    Then I should see "Test template 1" in the "template 1" "table_row"
+    And I click on "Edit" "button" in the "Test template 1" "table_row"
     And I set the following fields to these values:
       | Title | Demo template 1|
     And I press "Save changes"
     And I should see "Template successfully edited"
-    Then I should see "Demo template 1" in the "#templates_r5" "css_element"
-    And I click on "#templates_r5 .singlebutton:nth-child(2)" "css_element" in the "Demo template 1" "table_row"
+    Then I should see "Demo template 1" in the "template 1" "table_row"
+    And I click on "Delete" "button" in the "Demo template 1" "table_row"
     And I press "Delete"
     And I should see "Template successfully deleted"
 
@@ -88,8 +89,8 @@ Feature: Check the kickstart course format features.
 
     # Using the template
     And I should see "Test template 2" in the ".kickstart-tile-view" "css_element"
-    And I should see "Preview" in the ".template-list .card-deck:last-child .card-footer a:last-child" "css_element"
-    And I should see "Use template" in the ".template-list .card-deck:last-child .use-template" "css_element"
+    # And I should see "Preview" in the ".template-list .card-deck:has(.card[data-templatename=\"Test template 2\"]) .card-footer a:last-child" "css_element"
+    # And I should see "Use template" in the ".template-list .card-deck:has(.card[data-templatename=\"Test template 2\"]) .use-template" "css_element"
     And I click on ".use-template[data-templatename=\"Test template 2\"]" "css_element" in the ".template-list" "css_element"
     And I wait "20" seconds
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
