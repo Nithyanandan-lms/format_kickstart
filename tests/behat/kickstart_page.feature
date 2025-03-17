@@ -64,7 +64,7 @@ Feature: Check the kickstart course format features.
     And ".template-list.kickstart-tile-view" "css_element" should exist in the ".kickstart-page" "css_element"
 
     # Check the search template
-    And I should see "Kickstart format" in the ".kickstart-tile-view" "css_element"
+    And I should see "Kickstart format" in the ".kickstart-tile-view .card-deck:nth-child(4) .card-body" "css_element"
     And I set the following fields to these values:
       | search-template    | Weekly sections |
     And I should see "Weekly sections" in the ".kickstart-tile-view" "css_element"
@@ -130,7 +130,7 @@ Feature: Check the kickstart course format features.
 
     # Admin sees the "Student view" page in the kickstart page
     And I am on "Course 1" course homepage
-    And I click on ".use-template[data-templatename=\"Custom sections\"]" "css_element" in the ".template-list" "css_element"
+    And I click on "Use template" "link" in the ".template-list .card-deck .card-footer" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
 
     And I click on "Kickstart" "link" in the ".secondary-navigation" "css_element"
