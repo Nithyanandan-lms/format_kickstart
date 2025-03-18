@@ -148,7 +148,7 @@ Feature: Check the kickstart course format features.
     And I click on ".use-template" "css_element" in the ".template-list .card-deck:nth-child(3) .card-footer" "css_element"
     And I click on "Import" "button" in the ".modal" "css_element"
     Then I should see "Course 2"
-    Then ".course-content ul.weeks" "css_element" should exist
+    Then ".format-weeks ul.weeks" "css_element" should exist
 
   Scenario: Check the single activity format template
     Given I log in as "admin"
