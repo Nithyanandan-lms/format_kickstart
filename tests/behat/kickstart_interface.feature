@@ -76,7 +76,7 @@ Feature: Check the kickstart course format features.
     And I set the following fields to these values:
       | Title | Test template 2 |
       | Tags  | template2 |
-      | Course backup file (.mbz) | /course/format/kickstart/tests/course.mbz |
+      | Course backup file (.mbz) | /course/format/kickstart/tests/course-10-online.mbz |
       | Preview URL  | https://www.example.com |
     And I press "Save changes"
     And I should see "Test template 2" in the ".generaltable" "css_element"
