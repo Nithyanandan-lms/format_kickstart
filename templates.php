@@ -32,7 +32,7 @@ $download = optional_param('download', '', PARAM_ALPHA);
 $action = optional_param('action', '', PARAM_TEXT);
 $templateid = optional_param('template', '', PARAM_TEXT);
 
-
+require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/course/format/kickstart/templates.php'));

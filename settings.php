@@ -147,12 +147,12 @@ if ($ADMIN->fulltree) {
 
 
     // Settings for the course library sort weight.
-    // Add relevance weight settings
+    // Add relevance weight settings.
     $settings->add(new admin_setting_configtext(
         'format_kickstart/weight_fullname',
         get_string('weight_fullname', 'format_kickstart'),
         get_string('weight_fullname_desc', 'format_kickstart'),
-        5, // default value
+        5,
         PARAM_INT
     ));
 
