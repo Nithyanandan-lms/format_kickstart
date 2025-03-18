@@ -153,7 +153,6 @@ Feature: Check the kickstart course format features.
   Scenario: Check the single activity format template
     Given I log in as "admin"
     And I am on "Course 3" course homepage with editing mode on
-    And I wait "30" seconds
     And I should see course format "Single activity"
     And I click kickstart single activity format template
     And I click on "Import" "button" in the ".modal" "css_element"

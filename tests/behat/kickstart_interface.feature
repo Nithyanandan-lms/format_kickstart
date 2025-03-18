@@ -130,7 +130,7 @@ Feature: Check the kickstart interface
 
     # Admin sees the "Student view" page in the kickstart page
     And I am on "Course 1" course homepage
-    And I click on "Use template" "link" in the ".template-list .card-deck .card-footer:first-child .card-footer" "css_element"
+    And I click on ".use-template" "css_element" in the ".template-list .card-deck .card-footer:first-child .card-footer" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
 
     And I click on "Kickstart" "link" in the ".secondary-navigation" "css_element"
