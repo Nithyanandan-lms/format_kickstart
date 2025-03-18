@@ -1,5 +1,5 @@
 @format @format_kickstart @kickstart_page @_file_upload @javascript
-Feature: Check the kickstart course format features.
+Feature: Check the kickstart interface.
   Background: Create users to check the visbility.
     Given the following "users" exist:
       | username | firstname | lastname | email              |
