@@ -133,7 +133,7 @@ Feature: Check the kickstart course format features.
     Then I am on "Course 1" course homepage
     And I should see "Course template" in the ".tertiary-navigation-selector .dropdown-toggle" "css_element"
     And I should not see course format "Single activity"
-    And I click on "Use template" "link" in the ".template-list .card-deck:first-child .card-footer" "css_element"
+    And I click on ".use-template" "css_element" in the ".template-list .card-deck:first-child .card-footer" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
     And I start watching to see if a new page loads
     Then I should see "Course 1"
@@ -145,7 +145,7 @@ Feature: Check the kickstart course format features.
       | Course layout | Show one section per page |
     Then I press "Save changes"
     Then I am on "Course 2" course homepage
-    And I click on "Use template" "link" in the ".template-list .card-deck:nth-child(2) .card-footer" "css_element"
+    And I click on ".use-template" "css_element" in the ".template-list .card-deck:nth-child(2) .card-footer" "css_element"
     And I click on "Import" "button" in the ".modal" "css_element"
     Then I should see "Course 2"
     Then ".course-content ul.weeks" "css_element" should exist
