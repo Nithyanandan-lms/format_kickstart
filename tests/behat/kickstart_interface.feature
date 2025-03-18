@@ -71,8 +71,7 @@ Feature: Check the kickstart interface
     And I should not see "Kickstart format" in the ".kickstart-tile-view" "css_element"
 
     # Check the manage templates.
-    And I click on "Manage templates" "link" in the ".kickstart-page" "css_element"
-    And I switch to a second window
+    Then I navigate to "Plugins > Course formats > Manage templates" in site administration
     And I should see "Kickstart format" in the ".generaltable" "css_element"
     And I click on "Create template" "button"
     And I set the following fields to these values:
@@ -82,7 +81,6 @@ Feature: Check the kickstart interface
       | Preview URL  | https://www.example.com |
     And I press "Save changes"
     And I should see "Test template 2" in the ".generaltable" "css_element"
-    And I close all opened windows
     And I wait "2" seconds
     And I set the following fields to these values:
       | search-template |  |
