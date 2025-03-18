@@ -1,4 +1,4 @@
-@format @format_kickstart @kickstart_visibility @_file_upload @javascript
+@format @format_kickstart @format_kickstart_visibility @_file_upload @javascript
 Feature: Check the kickstart course format features.
   Background: Create users to check the visbility.
     Given the following "users" exist:
