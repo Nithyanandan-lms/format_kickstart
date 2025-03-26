@@ -125,9 +125,6 @@ Feature: Check the kickstart interface.
     And I am on "Course 1" course homepage
     And I click on "Use template" "link" in the ".template-list .card-deck:first-child .card-footer" "css_element"
     And I click on "Import" "button" in the ".modal-dialog" "css_element"
-
-    And I click on ".dropdown-toggle" "css_element" in the ".tertiary-navigation-selector" "css_element"
-    And I click on ".dropdown .dropdown-menu .dropdown-item:first-child" "css_element" in the ".tertiary-navigation-selector" "css_element"
     And I should see "Course template" in the ".tertiary-navigation-selector .dropdown-toggle" "css_element"
     And I click on ".dropdown-toggle" "css_element" in the ".tertiary-navigation-selector" "css_element"
     And I click on ".dropdown .dropdown-menu .dropdown-item:nth-child(2)" "css_element" in the ".tertiary-navigation-selector" "css_element"
