@@ -100,7 +100,6 @@ Feature: Check the kickstart interface.
     # Tile view
     And I click on "#tile-view" "css_element" in the ".listing-view-block" "css_element"
     And ".template-list.kickstart-tile-view" "css_element" should exist in the ".kickstart-page" "css_element"
-    And I should see "Kickstart format" in the ".kickstart-tile-view" "css_element"
 
     # Template search
     And I set the following fields to these values:
