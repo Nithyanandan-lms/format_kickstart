@@ -78,7 +78,7 @@ class import_course_list implements \templatable, \renderable {
 
         // Obviously not... show the selector so one can be chosen.
         $url = new \moodle_url('/local/kickstart_pro/import.php', ['id' => $COURSE->id]);
-        $component = new import_courselibrary_search(['url' => $url], null,
+        $component = new import_courselibrary_search(['url' => $url], $COURSE->id,
             $this->filtercustomfields, $this->sorttype, $this->page);
         $courses = [];
         $html = '';
@@ -155,7 +155,6 @@ class import_course_list implements \templatable, \renderable {
             }
         }
         $page = $this->page;
-        $paginationurl = new \moodle_url($PAGE->url, ['page' => $page]);
         $pagination = $OUTPUT->paging_bar($component->get_total_course_count(), $page,
             get_config('format_kickstart', 'courselibraryperpage'), $PAGE->url);
         return [
@@ -248,9 +247,8 @@ class import_course_list implements \templatable, \renderable {
                     $module['modname'] = (string) $cm->modname;
                     $module['modplural'] = (string) $cm->modplural;
                     $module['modicon'] = $cm->get_icon_url()->out(false);
-                    $moduleplugname = get_string('pluginname', $module['modname']);
-                    $sectionmodulenames[$moduleplugname] = isset($sectionmodulenames[$moduleplugname]) ?
-                        $sectionmodulenames[$moduleplugname] + 1 : 1;
+                    $sectionmodulenames[$cm->modname] = isset($sectionmodulenames[$cm->modname]) ?
+                        $sectionmodulenames[$cm->modname] + 1 : 1;
                     // Url of the module.
                     $url = $cm->url;
                     if ($url) {
@@ -278,7 +276,11 @@ class import_course_list implements \templatable, \renderable {
 
             $formattedstring = [];
             foreach ($sectionmodulenames as $module => $count) {
-                $formattedstring[]['value'] = $count . ' ' . $module;
+                if ($count == 1) {
+                    $formattedstring[]['value'] = $count . ' ' . get_string('pluginname', $module);
+                } else {
+                    $formattedstring[]['value'] = $count . ' ' . get_string('modulenameplural', $module);
+                }
             }
 
             $sectionvalues['sectionmodulenames'] = $formattedstring;
