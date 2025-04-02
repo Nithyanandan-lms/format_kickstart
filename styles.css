@@ -366,9 +366,6 @@ body#page-course-format-kickstart-template.template-designer-format #fitem_id_co
 .kickstart-page .kickstart-block .tertiary-navigation .navitem {
     margin-bottom: 0;
 }
-.kickstart-page .kickstart-block .tertiary-navigation .navitem .dropdown .dropdown-toggle:focus {
-    box-shadow: none;
-}
 .kickstart-page .kickstart-block + .mform {
     width: 100%;
 }
@@ -438,7 +435,8 @@ body#page-course-format-kickstart-template.template-designer-format #fitem_id_co
 
 /* End of Tile view */
 
-#page-course-view-kickstart.limitedwidth #page.drawers .main-inner:has(:not(.kickstart-page .summary-view-block)) {
+#page-course-view-kickstart.limitedwidth #page.drawers .main-inner:not(:has(.kickstart-page .summary-view-block)):not(:has(.kickstart-page .alert-block)),
+#page-course-view-kickstart.limitedwidth #page.drawers .main-inner:has(.kickstart-page .mform) {
     max-width: 100%;
 }
 #page-course-format-kickstart-list #page.drawers .main-inner:has(.kickstart-page .summary-view-block),
