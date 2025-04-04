@@ -471,7 +471,7 @@ function format_kickstart_update_template_format_options($template) {
         }
         foreach ($records as $record) {
             if (!$existrecord = $DB->get_record('format_kickstart_options', ['format' => $courseformat,
-                'templateid' => $template->id, 'name' => $record->name ])) {
+                'templateid' => $template->id, 'name' => $record->name])) {
                 $data = new stdClass();
                 $data->templateid = $template->id;
                 $data->displayname = $template->title;
