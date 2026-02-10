@@ -132,8 +132,13 @@ class import_courselibrary_search {
      * @param mixed $sorttype
      * @param mixed $page
      */
-    public function __construct(array $config = [], $currentcouseid = null, $customfields = [],
-        $sorttype = '', $page = 0) {
+    public function __construct(
+        array $config = [],
+        $currentcouseid = null,
+        $customfields = [],
+        $sorttype = '',
+        $page = 0
+    ) {
         $this->search = optional_param('search', '', PARAM_NOTAGS);
         $this->search = trim($this->search);
         $this->maxresults = get_config('format_kickstart', 'courselibraryperpage');
@@ -148,7 +153,7 @@ class import_courselibrary_search {
         $this->page = $page;
 
         foreach ($config as $name => $value) {
-            $method = 'set_'.$name;
+            $method = 'set_' . $name;
             if (method_exists($this, $method)) {
                 $this->$method($value);
             }
@@ -251,13 +256,13 @@ class import_courselibrary_search {
         $ctxjoin = "LEFT JOIN {context} ctx ON (ctx.instanceid = c.id AND ctx.contextlevel = :contextlevel)";
         $params = [
             'contextlevel' => CONTEXT_COURSE,
-            'fullnamesearch' => '%'.$this->get_search().'%',
-            'shortnamesearch' => '%'.$this->get_search().'%',
-            'descriptionsearch' => '%'.$this->get_search().'%',
-            'tagsearch' => '%'.$this->get_search().'%',
-            'activitynamesearch' => '%'.$this->get_search().'%',
-            'activitytagsearch' => '%'.$this->get_search().'%',
-            'activitydescriptionsearch' => '%'.$this->get_search().'%',
+            'fullnamesearch' => '%' . $this->get_search() . '%',
+            'shortnamesearch' => '%' . $this->get_search() . '%',
+            'descriptionsearch' => '%' . $this->get_search() . '%',
+            'tagsearch' => '%' . $this->get_search() . '%',
+            'activitynamesearch' => '%' . $this->get_search() . '%',
+            'activitytagsearch' => '%' . $this->get_search() . '%',
+            'activitydescriptionsearch' => '%' . $this->get_search() . '%',
             'currentuser' => $USER->id,
             'currentuserid' => $USER->id,
         ];
@@ -298,8 +303,8 @@ class import_courselibrary_search {
             $tablename = clean_param($module->name, PARAM_ALPHANUMEXT);
             if ($DB->get_manager()->table_exists($tablename)) {
                 // Use proper Moodle DB table name formatting.
-                $moduleunions[] = "SELECT '".$DB->sql_compare_text($module->name).
-                    "' as modname, id, name, intro FROM {".$tablename."}";
+                $moduleunions[] = "SELECT '" . $DB->sql_compare_text($module->name) .
+                    "' as modname, id, name, intro FROM {" . $tablename . "}";
             }
         }
         $modulesql = implode(" UNION ALL ", $moduleunions);
@@ -317,20 +322,20 @@ class import_courselibrary_search {
                     LEFT JOIN {course_modules} cm ON cm.course = c.id
                     LEFT JOIN {modules} m ON m.id = cm.module
                     LEFT JOIN (
-                        ".$modulesql."
+                        " . $modulesql . "
                     ) modinfo ON modinfo.modname = m.name AND modinfo.id = cm.instance
                     LEFT JOIN {tag_instance} cmti ON cmti.itemid = cm.id AND cmti.itemtype = 'course_modules'
                     LEFT JOIN {tag} cmt ON cmt.id = cmti.tagid
                     LEFT JOIN {customfield_data} cfd ON cfd.instanceid = c.id
                     LEFT JOIN {customfield_field} cff ON cff.id = cfd.fieldid ";
 
-        $where  = " WHERE c.id > 1 AND (".$DB->sql_like('c.fullname', ':fullnamesearch', false)." OR ".
-                $DB->sql_like('c.shortname', ':shortnamesearch', false). " OR ".
-                $DB->sql_like('c.summary', ':descriptionsearch', false). " OR ".
-                $DB->sql_like('t.name', ':tagsearch', false). " OR ".
-                $DB->sql_like('modinfo.name', ':activitynamesearch', false). " OR ".
-                $DB->sql_like('modinfo.intro', ':activitydescriptionsearch', false). " OR ".
-                $DB->sql_like('cmt.name', ':activitytagsearch', false). ")";
+        $where  = " WHERE c.id > 1 AND (" . $DB->sql_like('c.fullname', ':fullnamesearch', false) . " OR " .
+                $DB->sql_like('c.shortname', ':shortnamesearch', false) . " OR " .
+                $DB->sql_like('c.summary', ':descriptionsearch', false) . " OR " .
+                $DB->sql_like('t.name', ':tagsearch', false) . " OR " .
+                $DB->sql_like('modinfo.name', ':activitynamesearch', false) . " OR " .
+                $DB->sql_like('modinfo.intro', ':activitydescriptionsearch', false) . " OR " .
+                $DB->sql_like('cmt.name', ':activitytagsearch', false) . ")";
 
         if (!is_siteadmin()) {
             // Add capability conditions.
@@ -357,7 +362,7 @@ class import_courselibrary_search {
         $orderby = " ORDER BY c.sortorder";
 
         // Add sorting.
-        switch($this->sorttype) {
+        switch ($this->sorttype) {
             case 'alphabetical':
                 $orderby = " ORDER BY c.fullname ASC";
                 break;
@@ -375,10 +380,9 @@ class import_courselibrary_search {
 
         $limitfrom = $this->page;
         $perpage = get_config("format_kickstart", "courselibraryperpage");
-        list($limitfrom, $limitnum) = $this->normalise_limit_from_num($limitfrom * $perpage, $perpage);
+        [$limitfrom, $limitnum] = $this->normalise_limit_from_num($limitfrom * $perpage, $perpage);
 
         if ($CFG->dbtype == 'pgsql') {
-
             // If pgsql.
             if ($limitnum) {
                 $limit .= " LIMIT $limitnum";
@@ -398,7 +402,7 @@ class import_courselibrary_search {
 
         $params += $this->sqlparams;
 
-        return [$select.$ctxselect.$from.$where.$orderby.$limit, $params];
+        return [$select . $ctxselect . $from . $where . $orderby . $limit, $params];
     }
 
     /**
@@ -414,7 +418,7 @@ class import_courselibrary_search {
         $this->results = [];
         $this->totalcount = 0;
         $contextlevel = $this->get_itemcontextlevel();
-        list($sql, $params) = $this->get_searchsql();
+        [$sql, $params] = $this->get_searchsql();
 
         // Get total number, to avoid some incorrect iterations.
         $countsql = preg_replace('/ORDER BY.*/', '', $sql);
@@ -441,8 +445,7 @@ class import_courselibrary_search {
         }
 
         if ($this->sorttype == 'relevance') {
-
-            usort($this->results, function($a, $b) {
+            usort($this->results, function ($a, $b) {
                 // Convert similarity scores to float for accurate comparison.
                 $scorea = (float)$a->similarityscore;
                 $scoreb = (float)$b->similarityscore;
@@ -490,10 +493,10 @@ class import_courselibrary_search {
             $currenttags = \core_tag_tag::get_item_tags('core', 'course', $currentcourse->id);
             $coursetags = \core_tag_tag::get_item_tags('core', 'course', $course->id);
 
-            $currenttagnames = array_map(function($tag) {
+            $currenttagnames = array_map(function ($tag) {
                 return $tag->name;
             }, $currenttags);
-            $coursetagnames = array_map(function($tag) {
+            $coursetagnames = array_map(function ($tag) {
                 return $tag->name;
             }, $coursetags);
 
@@ -510,7 +513,7 @@ class import_courselibrary_search {
             // Get all favorite courses for current user.
             $userfavorites = $ufservice->find_all_favourites('core_course', ['courses']);
             // Get favorite course IDs.
-            $favcourseids = array_map(function($fav) {
+            $favcourseids = array_map(function ($fav) {
                 return $fav->itemid;
             }, $userfavorites);
 
@@ -528,11 +531,16 @@ class import_courselibrary_search {
                 $shortname = $field->get('shortname');
                 $weight = $this->weights['customfield_' . $shortname];
                 if ($weight > 0) {
-
-                    $currentdata = $DB->get_field('customfield_data', 'value',
-                    ['instanceid' => $currentcourse->id, 'fieldid' => $field->get('id')]);
-                    $coursedata = $DB->get_field('customfield_data', 'value',
-                    ['instanceid' => $course->id, 'fieldid' => $field->get('id')]);
+                    $currentdata = $DB->get_field(
+                        'customfield_data',
+                        'value',
+                        ['instanceid' => $currentcourse->id, 'fieldid' => $field->get('id')]
+                    );
+                    $coursedata = $DB->get_field(
+                        'customfield_data',
+                        'value',
+                        ['instanceid' => $course->id, 'fieldid' => $field->get('id')]
+                    );
                     if ($currentdata && $coursedata) {
                         similar_text(
                             strtolower($currentdata),
@@ -597,20 +605,28 @@ class import_courselibrary_search {
         if ($CFG->debugdeveloper) {
             if (!is_numeric($limitfrom)) {
                 $strvalue = var_export($limitfrom, true);
-                debugging("Non-numeric limitfrom parameter detected: $strvalue, did you pass the correct arguments?",
-                    DEBUG_DEVELOPER);
+                debugging(
+                    "Non-numeric limitfrom parameter detected: $strvalue, did you pass the correct arguments?",
+                    DEBUG_DEVELOPER
+                );
             } else if ($limitfrom < 0) {
-                debugging("Negative limitfrom parameter detected: $limitfrom, did you pass the correct arguments?",
-                    DEBUG_DEVELOPER);
+                debugging(
+                    "Negative limitfrom parameter detected: $limitfrom, did you pass the correct arguments?",
+                    DEBUG_DEVELOPER
+                );
             }
 
             if (!is_numeric($limitnum)) {
                 $strvalue = var_export($limitnum, true);
-                debugging("Non-numeric limitnum parameter detected: $strvalue, did you pass the correct arguments?",
-                    DEBUG_DEVELOPER);
+                debugging(
+                    "Non-numeric limitnum parameter detected: $strvalue, did you pass the correct arguments?",
+                    DEBUG_DEVELOPER
+                );
             } else if ($limitnum < 0) {
-                debugging("Negative limitnum parameter detected: $limitnum, did you pass the correct arguments?",
-                    DEBUG_DEVELOPER);
+                debugging(
+                    "Negative limitnum parameter detected: $limitnum, did you pass the correct arguments?",
+                    DEBUG_DEVELOPER
+                );
             }
         }
 
@@ -629,11 +645,10 @@ class import_courselibrary_search {
      */
     public function get_total_course_count() {
         global $DB;
-        list($sql, $params) = $this->get_searchsql();
+        [$sql, $params] = $this->get_searchsql();
         // Get total number, to avoid some incorrect iterations.
         $countsql = preg_replace('/ORDER BY.*/', '', $sql);
         $totalcourses = $DB->count_records_sql("SELECT COUNT(*) FROM ($countsql) sel", $params);
         return $totalcourses;
     }
-
 }
