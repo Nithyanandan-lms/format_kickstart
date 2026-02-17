@@ -10,15 +10,15 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_USER: "postgres"
-          POSTGRES_HOST_AUTH_METHOD: "trust"
+          POSTGRES_USER: 'postgres'
+          POSTGRES_HOST_AUTH_METHOD: 'trust'
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
       mariadb:
-        image: mariadb:10.11
+        image: mariadb:10
         env:
-          MYSQL_USER: "root"
+          MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
         ports:
           - 3306:3306
@@ -33,6 +33,12 @@ jobs:
             database: 'mariadb'
           - php: '8.3'
             moodle-branch: 'MOODLE_501_STABLE'
+            database: 'pgsql'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_405_STABLE'
+            database: 'mariadb'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_405_STABLE'
             database: 'pgsql'
 
     steps:
