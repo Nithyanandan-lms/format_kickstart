@@ -104,6 +104,15 @@ class course_importer {
             $data = array_merge($course, $formatoptions);
             update_course((object)$data);
         }
+
+        // Trigger event.
+        $event = \format_kickstart\event\course_imported::create([
+            'objectid' => $courseid,
+            'userid' => $USER->id,
+            'context' => \context_course::instance($courseid),
+        ]);
+        $event->trigger();
+
     }
 
     /**
