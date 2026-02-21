@@ -52,7 +52,7 @@ class course_importer {
      * @throws \restore_controller_exception
      */
     public static function import_from_template($templateid, $courseid) {
-        global $CFG, $DB, $PAGE;
+        global $CFG, $DB, $PAGE, $USER;
         require_once($CFG->dirroot . "/course/lib.php");
         $PAGE->set_context(\context_course::instance($courseid));
         $template = $DB->get_record('format_kickstart_template', ['id' => $templateid], '*', MUST_EXIST);
@@ -112,7 +112,6 @@ class course_importer {
             'context' => \context_course::instance($courseid),
         ]);
         $event->trigger();
-
     }
 
     /**
